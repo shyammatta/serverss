@@ -1,6 +1,9 @@
 // server/routes/locationRoutes.js
 const express = require('express');
 const router = express.Router();
+const CommonProblem = require('../models/CommonProblem');  // Check if this is the correct path to the model
+const Video = require('../models/Video');  // Same for the Video model
+
 
 const states = ['Andhra Pradesh', 'Telangana'];
 const districtsMap = {
