@@ -12,7 +12,7 @@ const upload = multer({ storage });
 
 router.post('/upload', upload.single('video'), async (req, res) => {
   const { text, village } = req.body;
-  const videoPath = req.file.path;
+  const videoPath = req.file.filename;
 
   await Problem.create({ text, videoPath, village });
   res.json({ message: 'Uploaded' });
