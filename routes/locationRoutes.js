@@ -52,15 +52,6 @@ router.get('/common-problems', async (req, res) => {
   }
 });
 
-// Get all videos
-router.get('/common-videos', async (req, res) => {
-  try {
-    const videos = await Problem.find();
-    res.json(videos);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
 
 
 module.exports = router;
