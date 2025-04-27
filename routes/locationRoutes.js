@@ -1,7 +1,7 @@
 // server/routes/locationRoutes.js
 const express = require('express');
 const router = express.Router();
-const CommonProblem = require('../models/Problem');  // Check if this is the correct path to the model
+const Problem = require('../models/Problem');  // Check if this is the correct path to the model
 const Video = require('../models/Video');  // Same for the Video model
 
 
