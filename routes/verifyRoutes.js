@@ -4,7 +4,8 @@ const router = express.Router(); // ✅ You forgot this line!
 const villageCoordinates = {
     "komarthy": { lat: 18.3945, lon: 84.0154 },
     "LN puram": { lat: 16.2, lon: 80.7 },
-    "Temple Alwal":{lat:17.4967,lon:78.5067}
+    "Temple Alwal":{lat:17.4967,lon:78.5067},
+    'Durgam Cheruvu':{lat:17.4300,lon:78.3895}
   };
   
   
