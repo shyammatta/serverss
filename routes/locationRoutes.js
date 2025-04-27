@@ -1,7 +1,7 @@
 // server/routes/locationRoutes.js
 const express = require('express');
 const router = express.Router();
-const CommonProblem = require('../models/CommonProblem');  // Check if this is the correct path to the model
+const CommonProblem = require('../models/Problem');  // Check if this is the correct path to the model
 const Video = require('../models/Video');  // Same for the Video model
 
 
@@ -42,7 +42,7 @@ router.get('/villages/:mandal', (req, res) => {
 // Get all common problems
 router.get('/common-problems', async (req, res) => {
   try {
-    const problems = await CommonProblem.find();
+    const problems = await Problem.find();
     res.json(problems);
   } catch (err) {
     res.status(500).send(err.message);
@@ -52,7 +52,7 @@ router.get('/common-problems', async (req, res) => {
 // Get all videos
 router.get('/common-videos', async (req, res) => {
   try {
-    const videos = await Video.find();
+    const videos = await Problem.find();
     res.json(videos);
   } catch (err) {
     res.status(500).send(err.message);
