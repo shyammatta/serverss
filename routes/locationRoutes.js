@@ -17,7 +17,10 @@ const mandalsMap = {
 const villagesMap = {
   'Narasannapeta': ['Komarthy', 'LN puram'],
   'Ameerpet': ['VillageA', 'VillageB'],
-  'Bolarum':['Temple Alwal','old Alwal']
+  'Bolarum':['Temple Alwal','old Alwal'],
+  'Madhapur':['Durgam Cheruvu']
+
+  
 
 };
 
