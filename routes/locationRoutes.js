@@ -7,18 +7,20 @@ const Video = require('../models/Video');  // Same for the Video model
 
 const states = ['Andhra Pradesh', 'Telangana'];
 const districtsMap = {
-  'Andhra Pradesh': ['Srikakulam', 'Krishna'],
+  'Andhra Pradesh': ['Srikakulam', 'Krishna','Kakinada],
   'Telangana': ['Hyderabad', 'Warangal']
 };
 const mandalsMap = {
   'Srikakulam': ['Narasannapeta', 'Tenali'],
-  'Hyderabad': ['Bolarum','Ameerpet', 'Madhapur']
+  'Hyderabad': ['Bolarum','Ameerpet', 'Madhapur'],
+  'Kakinada':['Samarlakota','Rpuram']
 };
 const villagesMap = {
   'Narasannapeta': ['Komarthy', 'LN puram'],
   'Ameerpet': ['VillageA', 'VillageB'],
   'Bolarum':['Temple Alwal','old Alwal'],
-  'Madhapur':['Durgam Cheruvu']
+  'Madhapur':['Durgam Cheruvu'],
+  'Samarlakota':['Peddapuram']
 
   
 
