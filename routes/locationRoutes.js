@@ -7,7 +7,7 @@ const Video = require('../models/Video');  // Same for the Video model
 
 const states = ['Andhra Pradesh', 'Telangana'];
 const districtsMap = {
-  'Andhra Pradesh': ['Srikakulam', 'Krishna','Kakinada],
+  'Andhra Pradesh': ['Srikakulam', 'Krishna','Kakinada'],
   'Telangana': ['Hyderabad', 'Warangal']
 };
 const mandalsMap = {
