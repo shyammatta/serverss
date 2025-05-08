@@ -2,37 +2,20 @@
 const express = require('express');
 const multer = require('multer');
 const Problem = require('../models/Problem');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { cloudinary, storage } = require('../cloudinary'); // ✅
 
-const cloudinary = require('../cloudinary'); // import Cloudinary config
-const fs = require('fs');
 const router = express.Router();
-
-const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
-});
-
-const upload = multer({ storage });
+const upload = multer({ storage }); // ✅ use cloudinary storage
 
 router.post('/upload', upload.single('video'), async (req, res) => {
   try {
     const { text, village } = req.body;
-    const filePath = req.file.path; // ✅ Actual path of uploaded file
 
-    // Upload to Cloudinary
-    const result = await cloudinary.uploader.upload(filePath, {
-      resource_type: 'video'
-    });
-
-    // Delete local file after upload
-    fs.unlinkSync(filePath);
-
-    // Save to DB
+    // Cloudinary URL is directly available in req.file.path
     const newProblem = await Problem.create({
       text,
       village,
-      videoUrl: result.secure_url, // Use Cloudinary video URL
+      videoUrl: req.file.path, // ✅ cloudinary secure_url
       date: new Date()
     });
 
@@ -44,8 +27,3 @@ router.post('/upload', upload.single('video'), async (req, res) => {
 });
 
 module.exports = router;
-
-
-
-
-
