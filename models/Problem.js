@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const problemSchema = new mongoose.Schema({
   text: String,
-  videoPath: String,
+  videoUrl: String,
   village: String,
   date: { type: Date, default: Date.now }
 });
