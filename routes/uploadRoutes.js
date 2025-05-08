@@ -2,6 +2,8 @@
 const express = require('express');
 const multer = require('multer');
 const Problem = require('../models/Problem');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
 const cloudinary = require('../cloudinary'); // import Cloudinary config
 const fs = require('fs');
 const router = express.Router();
