@@ -1,6 +1,9 @@
+// server/routes/uploadRoutes.js
 const express = require('express');
 const multer = require('multer');
 const Problem = require('../models/Problem');
+const cloudinary = require('../cloudinary'); // import Cloudinary config
+const fs = require('fs');
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -11,11 +14,36 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post('/upload', upload.single('video'), async (req, res) => {
-  const { text, village } = req.body;
-  const videoPath = 'cloudinary://115737262565333:UYvt3fCh4H0ZiE8kTwBJfGHVS3Q@dgm9a6bxl';
+  try {
+    const { text, village } = req.body;
+    const filePath = req.file.path; // ✅ Actual path of uploaded file
 
-  await Problem.create({ text, videoPath, village });
-  res.json({ message: 'Uploaded' });
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(filePath, {
+      resource_type: 'video'
+    });
+
+    // Delete local file after upload
+    fs.unlinkSync(filePath);
+
+    // Save to DB
+    const newProblem = await Problem.create({
+      text,
+      village,
+      videoUrl: result.secure_url, // Use Cloudinary video URL
+      date: new Date()
+    });
+
+    res.json({ message: 'Uploaded', problem: newProblem });
+  } catch (err) {
+    console.error('Upload error:', err);
+    res.status(500).json({ error: 'Video upload failed' });
+  }
 });
 
 module.exports = router;
+
+
+
+
+
