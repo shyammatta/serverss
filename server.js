@@ -45,7 +45,7 @@ app.post('/api/send-otp', async (req, res) => {
   try {
     await client.messages.create({
       body: `Your OTP is ${otp}`,
-      from: 'your_twilio_phone_number',
+      from: '+12792639023',
       to: phone,
     });
     res.send({ success: true });
