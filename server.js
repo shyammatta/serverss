@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const twilio = require('twilio');
 
 require('dotenv').config();
 
@@ -32,7 +33,7 @@ app.use(bodyParser.json());
 // Mock OTP sending (simulate sending)
 const accountSid = 'AC8b87563b47a0cd0ad5deaa432df00ffa';
 const authToken = '1a939f3d5fdbbf4cb63becfa02dca99b';
-const client = require('twilio')(accountSid, authToken);
+const client = twilio(accountSid, authToken);
 
 app.post('/api/send-otp', async (req, res) => {
   const { phone } = req.body;
