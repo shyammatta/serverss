@@ -30,17 +30,35 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Mock OTP sending (simulate sending)
-app.post('/api/send-otp', (req, res) => {
+const accountSid = 'AC8b87563b47a0cd0ad5deaa432df00ffa';
+const authToken = '1a939f3d5fdbbf4cb63becfa02dca99b';
+const client = require('twilio')(accountSid, authToken);
+
+app.post('/api/send-otp', async (req, res) => {
   const { phone } = req.body;
-  users[phone] = { phone, name: `User-${phone.slice(-4)}` };
-  console.log(`OTP sent to ${phone}: 123456`);
-  res.send({ success: true });
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // Save OTP for verification later (in memory or DB)
+  users[phone] = { phone, otp };
+
+  try {
+    await client.messages.create({
+      body: `Your OTP is ${otp}`,
+      from: 'your_twilio_phone_number',
+      to: phone,
+    });
+    res.send({ success: true });
+  } catch (err) {
+    console.error('Twilio error:', err);
+    res.status(500).send({ success: false, message: 'Failed to send OTP' });
+  }
 });
+
 
 // OTP Verification
 app.post('/api/verify-otp', (req, res) => {
   const { phone, otp } = req.body;
-  if (otp === '123456' && users[phone]) {
+  if (users[phone]?.otp === otp) {
     res.send({ success: true, user: users[phone] });
   } else {
     res.send({ success: false });
