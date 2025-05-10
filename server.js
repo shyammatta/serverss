@@ -14,6 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+app.use(bodyParser.json());
+
 
 
 MONGO_URI='mongodb+srv://saishyam:<sai@2345>@village-problems.5tuhmvp.mongodb.net/?retryWrites=true&w=majority&appName=village-problems'
@@ -27,8 +29,6 @@ app.use('/api', verifyRoutes);
 const users = {}; // { phone: { phone, name } }
 const problems = []; // { id, phone, text, videoUrl }
 
-app.use(cors());
-app.use(bodyParser.json());
 
 // Mock OTP sending (simulate sending)
 const accountSid = 'AC8b87563b47a0cd0ad5deaa432df00ffa';
@@ -45,7 +45,7 @@ app.post('/api/send-otp', async (req, res) => {
   try {
     await client.messages.create({
       body: `Your OTP is ${otp}`,
-      from: '+12792639023',
+      from: +12792639023,
       to: phone,
     });
     res.send({ success: true });
