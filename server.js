@@ -38,20 +38,19 @@ const client = twilio(accountSid, authToken);
 app.post('/api/send-otp', async (req, res) => {
   const { phone } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
-  // Save OTP for verification later (in memory or DB)
   users[phone] = { phone, otp };
 
   try {
-    await client.messages.create({
+    const message = await client.messages.create({
       body: `Your OTP is ${otp}`,
-      from: +12792639023,
+      from: twilioPhone,
       to: phone,
     });
+    console.log(`OTP ${otp} sent to ${phone}`);
     res.send({ success: true });
   } catch (err) {
-    console.error('Twilio error:', err);
-    res.status(500).send({ success: false, message: 'Failed to send OTP' });
+    console.error('Twilio send error:', err.message);
+    res.status(500).send({ success: false, message: 'Failed to send OTP', error: err.message });
   }
 });
 
